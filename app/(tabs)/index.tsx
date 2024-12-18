@@ -17,6 +17,7 @@ export type Props = {
 export default function TabsIndex() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
   const [nextUrl, setNextUrl] = useState(null);
+
   const loadPokemons = async () => {
     try {
       const response = await getPokemonsApi(nextUrl);
@@ -34,7 +35,6 @@ export default function TabsIndex() {
       }
 
       setPokemons([...pokemons, ...pokemonsArray]);
-      console.log(pokemons);
     } catch (error) {
       console.error(error);
     }

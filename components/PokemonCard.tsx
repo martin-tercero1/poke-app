@@ -6,13 +6,20 @@ import {
   Pressable,
   SafeAreaView,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 import getColorByPokemonType from "@/getColorByPokemonType";
 
 export default function PokemonCard({ pokemon }) {
   const pokemonColor = getColorByPokemonType(pokemon.type);
   const bgStyles = { backgroundColor: pokemonColor, ...styles.bgStyles };
 
-  const goToPokemon = () => {};
+  const navigation = useNavigation();
+
+  const goToPokemon = () => {
+    console.log(pokemon.id);
+    navigation.navigate("pokemon", { pokemon });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
