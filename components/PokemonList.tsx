@@ -1,11 +1,10 @@
 import {
-  StyleSheet,
   FlatList,
   ActivityIndicator,
-  View,
+  SafeAreaView,
   Platform,
 } from "react-native";
-import PokemonCard from "./PokemonCard";
+import AnimatedPokemonCard from "./PokemonCard";
 
 export default function PokemonList({ pokemons, loadPokemons }) {
   const loadMore = () => {
@@ -14,35 +13,26 @@ export default function PokemonList({ pokemons, loadPokemons }) {
 
   // FlatList is waiting to receive data to be displayed in columns
   return (
-    <View>
+    <SafeAreaView>
       <FlatList
         data={pokemons}
         numColumns={2}
         showsVerticalScrollIndicator={false}
         keyExtractor={(pokemon) => String(pokemon.id)}
-        renderItem={({ item }) => <PokemonCard pokemon={item} />}
-        contentContainerStyle={styles.flatListContentContainer}
+        renderItem={({ item, index }) => (
+          <AnimatedPokemonCard pokemon={item} index={index} />
+        )}
+        className={`px-1 ${Platform.OS === "android" ? "mt-1" : "mt-0"} w-screen flex`}
         onEndReached={loadMore}
         onEndReachedThreshold={0.1}
         ListFooterComponent={
           <ActivityIndicator
             size="large"
-            style={styles.spinner}
+            className={`mt-4 ${Platform.OS === "android" ? "mb-10" : "mb-0"}`}
             color="#AEAEAE"
           />
         }
       />
-    </View>
+    </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  flatListContentContainer: {
-    paddingHorizontal: 5,
-    marginTop: Platform.OS === "android" ? 30 : 0,
-  },
-  spinner: {
-    marginTop: 20,
-    marginBottom: Platform.OS === "android" ? 90 : 60,
-  },
-});

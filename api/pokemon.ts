@@ -18,7 +18,7 @@ export async function getPokemonsApi(nextUrl: string) {
     const url = `${process.env.EXPO_PUBLIC_API_HOST}/pokemon?limit=20&offset=0`;
     // Fetch the data
     const response: AxiosResponse<PokemonResponse> = await axios(
-      nextUrl || url
+      nextUrl || url,
     );
     // Convert the result to json data
     return response.data;

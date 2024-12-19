@@ -1,23 +1,18 @@
 import { Link, Stack } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { View, Text } from "react-native";
 
 export default function NotFoundScreen() {
   return (
-    <>
-      <View>This screen does not exists</View>
-    </>
+    <View className="flex items-center justify-center p-10">
+      <Stack.Screen
+        options={{
+          title: "Oops! Not Found",
+        }}
+      ></Stack.Screen>
+      <Link className="mt-10 py-10 underline text-xl" href="/">
+        Go back to the Pokedex
+      </Link>
+      <Text>This screen does not exists</Text>
+    </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 20,
-  },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
-  },
-});

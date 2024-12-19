@@ -3,14 +3,15 @@ import { Stack } from "expo-router";
 
 // Import the global CSS file - Tailwind directives
 import "../global.css";
+import { AuthProvider } from "@/context/AuthContext";
 
-export default function TabsLayout() {
+export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen
-        name="(tabs)"
-        options={{ headerShown: false }}
-      ></Stack.Screen>
-    </Stack>
+    <AuthProvider>
+      <Stack>
+        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" options={{}} />
+      </Stack>
+    </AuthProvider>
   );
 }

@@ -1,7 +1,7 @@
 import { getPokemonsApi, getPokemonDetailsByURLApi } from "@/api/pokemon";
 import { useEffect, useState } from "react";
-import { SafeAreaView, StyleSheet } from "react-native";
 import PokemonList from "@/components/PokemonList";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 interface Pokemon {
   id: number;
   name: string;
@@ -14,22 +14,26 @@ export type Props = {
   pokemonsArray?: Pokemon[];
 };
 
-export default function TabsIndex() {
+export default function Pokedex() {
   const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-  const [nextUrl, setNextUrl] = useState(null);
+  const [nextUrl, setNextUrl] = useState(
+    "https://pokeapi.co/api/v2/pokemon?limit=20"
+  );
+  const [currentOffset, setCurrentOffset] = useState(0);
 
   const loadPokemons = async () => {
     try {
       const response = await getPokemonsApi(nextUrl);
       setNextUrl(response.next);
+      setCurrentOffset(currentOffset + response.results.length);
       const pokemonsArray = [];
-      for await (const pokemon of response.results) {
+      for await (const [index, pokemon] of response.results.entries()) {
         const pokemonDetails = await getPokemonDetailsByURLApi(pokemon.url);
         pokemonsArray.push({
           id: pokemonDetails.id,
           name: pokemonDetails.name,
           type: pokemonDetails.types[0].type.name,
-          order: pokemonDetails.order,
+          order: currentOffset + index + 1,
           image: pokemonDetails.sprites.front_default,
         });
       }
@@ -44,15 +48,11 @@ export default function TabsIndex() {
     loadPokemons();
   }, []);
 
+  // useSafeAreaInsets
+
   return (
-    <SafeAreaView style={style.container}>
+    <SafeAreaProvider className="pt-1">
       <PokemonList pokemons={pokemons} loadPokemons={loadPokemons} />
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
-
-const style = StyleSheet.create({
-  container: {
-    paddingTop: 5,
-  },
-});

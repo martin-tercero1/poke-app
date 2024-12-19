@@ -1,14 +1,8 @@
-import {
-  Image,
-  StyleSheet,
-  Platform,
-  Button,
-  SafeAreaView,
-} from "react-native";
+import { Button, SafeAreaView } from "react-native";
 import { Welcome } from "@/components/Welcome";
 import LoginForm from "@/components/LoginForm";
 
-export default function Home(props) {
+export default function Home(props: any) {
   const { navigation } = props;
 
   const goToPage = () => {
@@ -23,9 +17,3 @@ export default function Home(props) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    color: "white",
-  },
-});

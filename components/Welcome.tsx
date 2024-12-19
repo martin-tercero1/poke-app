@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native";
+import { Text } from "react-native";
 
 export type Props = {
   firstName: string;
@@ -10,14 +10,8 @@ export const Welcome: React.FC<Props> = ({
   lastName = "",
 }) => {
   return (
-    <Text style={styles.title}>
+    <Text className="text-white">
       Hello {firstName} {lastName}!
     </Text>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    color: "white",
-  },
-});

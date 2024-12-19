@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, Button } from "react-native";
+import { Text, Button } from "react-native";
 
 export type Props = {};
 
@@ -9,14 +9,8 @@ export const Settings: React.FC<Props> = ({ navigation }) => {
 
   return (
     <>
-      <Text style={styles.title}>We are in Settings</Text>
+      <Text className="text-white">We are in Settings</Text>
       <Button title="Go To Home" onPress={goToPage} />
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    color: "white",
-  },
-});
